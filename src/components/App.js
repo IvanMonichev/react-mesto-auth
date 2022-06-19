@@ -12,6 +12,7 @@ import api from "../utils/Api";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
+import InfoTooltip from "./InfoTooltip";
 
 
 function App() {
@@ -181,7 +182,13 @@ function App() {
           onDeleteCard={handleDeleteCard}
         />
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups} />
+
+        <InfoTooltip
+
+        />
         <template className="photo-gallery__item-template">
 
         </template>
