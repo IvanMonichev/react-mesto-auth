@@ -9,6 +9,7 @@
 
 /* Header */
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__body/header__body.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__menu/header__menu.css);
 @import url(./blocks/header/__burger/header__burger.css);
@@ -17,6 +18,7 @@
 @import url(blocks/header/__burger-line/_is-active/header__burger-line_is-active.css);
 
 @import url(./blocks/header-nav/header-nav.css);
+@import url(./blocks/header-nav/_is-active/header-nav_is-active.css);
 @import url(./blocks/header-nav/__list/header-nav__list.css);
 @import url(./blocks/header-nav/__item/header-nav__item.css);
 @import url(./blocks/header-nav/__link/header-nav__link.css);
