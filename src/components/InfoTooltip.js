@@ -4,7 +4,7 @@ import failIcon from '../images/fail-icon.svg'
 
 function InfoTooltip () {
   return (
-    <section className="popup popup_is-opened">
+    <section className="popup">
       <div className="popup__container popup__container_no-form">
         <img className="popup__icon" src={successIcon} alt="Успешная регистрация"/>
         <p className="popup__notification">Вы успешно зарегистрировались!</p>

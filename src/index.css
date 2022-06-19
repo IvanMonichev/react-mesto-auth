@@ -5,10 +5,22 @@
 /* Global block */
 @import url(./blocks/page-content/page-content.css);
 @import url(./blocks/button-action/button-action.css);
+@import url(./blocks/link-fade/link-fade.css);
 
 /* Header */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__menu/header__menu.css);
+@import url(./blocks/header/__burger/header__burger.css);
+@import url(./blocks/header/__burger/_is-active/header__burger__is-active.css);
+@import url(blocks/header/__burger-line/header__burger-line.css);
+@import url(blocks/header/__burger-line/_is-active/header__burger-line_is-active.css);
+
+@import url(./blocks/header-nav/header-nav.css);
+@import url(./blocks/header-nav/__list/header-nav__list.css);
+@import url(./blocks/header-nav/__item/header-nav__item.css);
+@import url(./blocks/header-nav/__link/header-nav__link.css);
+
 
 /* Section Profile */
 @import url(./blocks/profile/profile.css);
