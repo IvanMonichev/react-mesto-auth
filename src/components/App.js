@@ -1,14 +1,18 @@
 import React from "react";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import {Route, Switch} from "react-router-dom";
 import Header from "./Header";
+import Register from "./Register";
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
+
 
 function App() {
 
@@ -127,16 +131,28 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
 
-        <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          cards={cards}
-          onCardClick={handleCardClick}
-          onCardDelete={handleDeleteCardPopupClick}
-          onCardLike={handleCardLike}
-        />
-        <Footer/>
+        <Switch>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Main
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            cards={cards}
+            onCardClick={handleCardClick}
+            onCardDelete={handleDeleteCardPopupClick}
+            onCardLike={handleCardLike}
+            />
+          </Route>
+        </Switch>
+        <Route exact path="/">
+          <Footer/>
+        </Route>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
