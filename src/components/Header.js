@@ -1,6 +1,6 @@
 import logo from "../images/logo.svg";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {Switch, Route, Link} from "react-router-dom";
 
 function Header() {
     return (
@@ -13,8 +13,26 @@ function Header() {
           </div>
           <nav className="header__menu header-nav header-nav_is-active">
             <ul className="header-nav__list">
-              <li className="header-nav__item">email@mail.ru</li>
-              <li className="header-nav__item"><a href="#" className="header-nav__link link-fade button-action">Выйти</a></li>
+              <Switch>
+                <Route path="/sign-in">
+                  <li className="header-nav__item">
+                    <Link to="/sign-up" className="header-nav__link button-action">Регистрация</Link>
+                  </li>
+                </Route>
+                <Route path="/sign-up">
+                  <li className="header-nav__item">
+                    <Link to="/sign-in" className="header-nav__link button-action">Войти</Link>
+                  </li>
+                </Route>
+                <Route exact path="/">
+                  <li className="header-nav__item">
+                    <li className="header-nav__item">email@mail.ru</li>
+                    <li className="header-nav__item">
+                      <Link to="/sign-in" className="header-nav__link link-fade button-action">Выйти</Link>
+                    </li>
+                  </li>
+                </Route>
+              </Switch>
             </ul>
           </nav>
         </header>
