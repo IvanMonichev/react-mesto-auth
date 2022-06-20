@@ -1,6 +1,6 @@
 import React from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Header from "./Header";
 import Register from "./Register";
 import Login from "./Login";
@@ -28,7 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     api.getAllData()
@@ -151,6 +151,9 @@ function App() {
           </Route>
           <Route path="/sign-up">
             <Register />
+          </Route>
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
         </Switch>
         <Route exact path="/">

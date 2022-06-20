@@ -2,7 +2,7 @@ import logo from "../images/logo.svg";
 import React from "react";
 import {Switch, Route, Link} from "react-router-dom";
 
-function Header(props) {
+function Header() {
     return (
         <header className="header">
           <div className="header__body">
