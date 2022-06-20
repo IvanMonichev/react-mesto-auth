@@ -13,6 +13,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
 import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 function App() {
@@ -20,7 +21,6 @@ function App() {
   // Хуки
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  // Установка хуков на управление состояния формы (открыта/закрыта)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
@@ -28,6 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     api.getAllData()
@@ -131,16 +132,14 @@ function App() {
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-
         <Switch>
-          <Route path="/sign-up">
-            <Register />
-          </Route>
           <Route path="/sign-in">
             <Login />
           </Route>
-          <Route exact path="/">
-            <Main
+          <ProtectedRoute
+            path="/"
+            loggedIn={loggedIn}
+            component={Main}
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -148,7 +147,9 @@ function App() {
             onCardClick={handleCardClick}
             onCardDelete={handleDeleteCardPopupClick}
             onCardLike={handleCardLike}
-            />
+          />
+          <Route path="/sign-up">
+            <Register />
           </Route>
         </Switch>
         <Route exact path="/">
