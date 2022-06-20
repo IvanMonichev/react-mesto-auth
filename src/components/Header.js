@@ -2,7 +2,7 @@ import logo from "../images/logo.svg";
 import React from "react";
 import {Switch, Route, Link} from "react-router-dom";
 
-function Header() {
+function Header(props) {
     return (
         <header className="header">
           <div className="header__body">
@@ -25,12 +25,10 @@ function Header() {
                   </li>
                 </Route>
                 <Route exact path="/">
-                  <li className="header-nav__item">
                     <li className="header-nav__item">email@mail.ru</li>
                     <li className="header-nav__item">
                       <Link to="/sign-in" className="header-nav__link link-fade button-action">Выйти</Link>
                     </li>
-                  </li>
                 </Route>
               </Switch>
             </ul>

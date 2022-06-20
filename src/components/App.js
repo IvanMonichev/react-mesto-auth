@@ -28,7 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   React.useEffect(() => {
     api.getAllData()
@@ -133,10 +133,8 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Switch>
-          <Route path="/sign-in">
-            <Login />
-          </Route>
           <ProtectedRoute
+            exact
             path="/"
             loggedIn={loggedIn}
             component={Main}
@@ -148,6 +146,9 @@ function App() {
             onCardDelete={handleDeleteCardPopupClick}
             onCardLike={handleCardLike}
           />
+          <Route path="/sign-in">
+            <Login />
+          </Route>
           <Route path="/sign-up">
             <Register />
           </Route>
