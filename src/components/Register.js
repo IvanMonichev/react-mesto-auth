@@ -3,6 +3,7 @@ import Authorization from "./Authorization";
 import {Link} from "react-router-dom";
 
 function Register({}) {
+
   return (
     <Authorization
       title="Регистрация"

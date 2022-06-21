@@ -1,18 +1,21 @@
-class Api {
-  constructor(configuration) {
-    this._url = configuration._url;
-    this._headers = configuration._headers;
+const BASE_URL = 'https://auth.nomoreparties.co';
+
+const handleError = res => {
+  if (res.ok) {
+    return res.json();
   }
 
-  register ({email, password}) {
+  return Promise.reject(`Ошибка № ${res.status} – ${res.status}`);
+}
 
-  }
-
-  authorize ({email, password}) {
-
-  }
-
-  checkToken (token) {
-
-  }
+const register = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({email, password})
+  })
+    .then(handleError)
 }

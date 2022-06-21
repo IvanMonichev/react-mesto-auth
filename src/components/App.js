@@ -28,7 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     api.getAllData()
@@ -129,6 +129,8 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  /* Регистрация, авторизация */
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
@@ -150,7 +152,9 @@ function App() {
             <Login />
           </Route>
           <Route path="/sign-up">
-            <Register />
+            <Register
+              /*onSubmit={handleRegisterSubmit}*/
+            />
           </Route>
           <Route>
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
