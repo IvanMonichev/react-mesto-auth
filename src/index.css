@@ -18,6 +18,7 @@
 @import url(blocks/header/__burger-line/_is-active/header__burger-line_is-active.css);
 
 @import url(./blocks/header-nav/header-nav.css);
+@import url(./blocks/header-nav/_atop/header-nav_atop.css);
 @import url(./blocks/header-nav/_is-active/header-nav_is-active.css);
 @import url(./blocks/header-nav/__list/header-nav__list.css);
 @import url(./blocks/header-nav/__item/header-nav__item.css);
