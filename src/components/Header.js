@@ -2,7 +2,7 @@ import logo from "../images/logo.svg";
 import React from "react";
 import {Switch, Route, Link} from "react-router-dom";
 
-function Header({onExit}) {
+function Header({onExit, email}) {
   return (
     <header className="header">
       <Switch>
@@ -36,7 +36,7 @@ function Header({onExit}) {
           </div>
           <nav className="header__menu header-nav header-nav_atop header-nav_is-active">
             <ul className="header-nav__list">
-              <li className="header-nav__item">email@mail.ru</li>
+              <li className="header-nav__item">{email}</li>
               <li className="header-nav__item">
                 <Link to="/sign-in" className="header-nav__link link-fade button-action" onClick={onExit}>Выйти</Link>
               </li>

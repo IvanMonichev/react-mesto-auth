@@ -29,6 +29,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [email, setEmail] = React.useState('');
   const history = useHistory()
 
   React.useEffect(() => {
@@ -144,6 +145,7 @@ function App() {
     authorize(email, password)
       .then((data) => {
         if (data) {
+          setEmail(email);
           setLoggedIn(true);
           history.push('/');
         }
@@ -168,7 +170,8 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       getContent(jwt)
-        .then(() => {
+        .then((res) => {
+          setEmail(res.data.email)
           setLoggedIn(true);
           history.push('/');
         })
@@ -188,6 +191,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <Header
         onExit={handleExit}
+        email={email}
       />
       <Switch>
         <ProtectedRoute
