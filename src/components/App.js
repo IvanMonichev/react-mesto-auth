@@ -1,21 +1,26 @@
 import React from "react";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Header from "./Header";
+import Register from "./Register";
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
+import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
+import {authorize, getContent, register } from "../utils/Auth";
 
 function App() {
 
   // Хуки
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  // Установка хуков на управление состояния формы (открыта/закрыта)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
@@ -23,6 +28,9 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const history = useHistory()
 
   React.useEffect(() => {
     api.getAllData()
@@ -123,11 +131,74 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  return (
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+  /* Регистрация, авторизация */
 
-        <Main
+  const handleRegisterSubmit = ({email, password}) => {
+    register(email, password)
+      .then(() => {
+        history.push('/sign-in');
+      })
+      .catch(error => console.log(`${error.status} – ${error.statusText}`))
+  }
+
+  const handleLoginSubmit = ({email, password}) => {
+    authorize(email, password)
+      .then((data) => {
+        if (data) {
+          setEmail(email);
+          setLoggedIn(true);
+          history.push('/');
+        }
+      })
+      .catch(error => {
+        if (error === 400) {
+          console.log('400 - не передано одно из полей ');
+        } else if (error === 401) {
+          console.log('401 - пользователь email не найден');
+        } else {
+          console.log(`${error.status} – ${error.statusText}`);
+        }
+      })
+  }
+
+  const handleExit = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+  }
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      getContent(jwt)
+        .then((res) => {
+          setEmail(res.data.email)
+          setLoggedIn(true);
+          history.push('/');
+        })
+        .catch(error => {
+          if (error === 400) {
+            console.log('400 - токен не передан или передан не в том формате');
+          } else if (error === 401) {
+            console.log('401 - переданный токен некорректен');
+          } else {
+            console.log(`${error.status} – ${error.statusText}`);
+          }
+        })
+    }
+  }, [history]);
+
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header
+        onExit={handleExit}
+        email={email}
+      />
+      <Switch>
+        <ProtectedRoute
+          exact
+          path="/"
+          loggedIn={loggedIn}
+          component={Main}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -136,41 +207,63 @@ function App() {
           onCardDelete={handleDeleteCardPopupClick}
           onCardLike={handleCardLike}
         />
+        <Route path="/sign-in">
+          <Login
+            onLogin={handleLoginSubmit}
+          />
+        </Route>
+        <Route path="/sign-up">
+          <Register
+            onRegister={handleRegisterSubmit}
+          />
+        </Route>
+        <Route>
+          {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+        </Route>
+      </Switch>
+      <Route exact path="/">
         <Footer/>
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          buttonText={isLoading ? "Сохранение..." : "Сохранить"}
-        />
+      </Route>
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+      />
 
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          buttonText={isLoading ? "Сохранение..." : "Сохранить"}
-        />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+      />
 
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddCard={handleAddCard}
-          buttonText={isLoading ? "Создание..." : "Создать"}
-        />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddCard={handleAddCard}
+        buttonText={isLoading ? "Создание..." : "Создать"}
+      />
 
-        <DeleteCardPopup
-          isOpen={isDeleteCardPopupOpen}
-          onClose={closeAllPopups}
-          buttonText={isLoading ? "Удаление..." : "Удалить"}
-          onDeleteCard={handleDeleteCard}
-        />
+      <DeleteCardPopup
+        isOpen={isDeleteCardPopupOpen}
+        onClose={closeAllPopups}
+        buttonText={isLoading ? "Удаление..." : "Удалить"}
+        onDeleteCard={handleDeleteCard}
+      />
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <template className="photo-gallery__item-template">
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}/>
 
-        </template>
+      <InfoTooltip
 
-      </CurrentUserContext.Provider>
+      />
+      <template className="photo-gallery__item-template">
+
+      </template>
+
+    </CurrentUserContext.Provider>
   );
 }
 
