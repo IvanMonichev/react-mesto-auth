@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-mesto-auth/static/css/main.c010961f.css",
-    "main.js": "/react-mesto-auth/static/js/main.a6beccbb.js",
+    "main.js": "/react-mesto-auth/static/js/main.daef783b.js",
     "static/js/787.5530211c.chunk.js": "/react-mesto-auth/static/js/787.5530211c.chunk.js",
     "static/media/Inter-Medium.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -10,7 +10,7 @@
     "static/media/Inter-Black.woff2?v=3.19": "/react-mesto-auth/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
     "static/media/Inter-Regular.woff2?v=3.19": "/react-mesto-auth/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
     "static/media/logo.svg": "/react-mesto-auth/static/media/logo.713e935bbeafadff8afc57308fbe8c4b.svg",
-    "static/media/404-error.svg": "/react-mesto-auth/static/media/404-error.c08bf4d52a6086fec028a09590d4e0d0.svg",
+    "static/media/404-error.svg": "/react-mesto-auth/static/media/404-error.174c66c7fe36dc3111028e60dcf5e9ae.svg",
     "index.html": "/react-mesto-auth/index.html",
     "static/media/icon-heart.svg": "/react-mesto-auth/static/media/icon-heart.87ed371465c7a6a1cd01.svg",
     "static/media/fail-icon.svg": "/react-mesto-auth/static/media/fail-icon.df8eddf661ff88f2d0efd3d570d14309.svg",
@@ -21,11 +21,11 @@
     "static/media/plus.svg": "/react-mesto-auth/static/media/plus.d86bb2edc2f6eadb96b7.svg",
     "static/media/pancil.svg": "/react-mesto-auth/static/media/pancil.ca24bbfebaec05407929.svg",
     "main.c010961f.css.map": "/react-mesto-auth/static/css/main.c010961f.css.map",
-    "main.a6beccbb.js.map": "/react-mesto-auth/static/js/main.a6beccbb.js.map",
+    "main.daef783b.js.map": "/react-mesto-auth/static/js/main.daef783b.js.map",
     "787.5530211c.chunk.js.map": "/react-mesto-auth/static/js/787.5530211c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c010961f.css",
-    "static/js/main.a6beccbb.js"
+    "static/js/main.daef783b.js"
   ]
 }
