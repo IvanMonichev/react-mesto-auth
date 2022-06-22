@@ -15,6 +15,7 @@ import DeleteCardPopup from "./DeleteCardPopup";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 import {authorize, getContent, register } from "../utils/Auth";
+import PageNotFound from "./PageNotFound";
 
 function App() {
 
@@ -217,6 +218,9 @@ function App() {
             onRegister={handleRegisterSubmit}
           />
         </Route>
+        <Route path="*">
+          <PageNotFound />
+        </Route>
         <Route>
           {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
         </Route>
@@ -224,6 +228,7 @@ function App() {
       <Route exact path="/">
         <Footer/>
       </Route>
+
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}

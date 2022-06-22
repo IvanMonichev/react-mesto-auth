@@ -8,7 +8,6 @@ function Header({onExit, email}) {
   const burgerLineRef = React.useRef();
   const headerMenuRef = React.useRef();
 
-
   const handleToggleActiveNav = () => {
     burgerRef.current.classList.toggle('header__burger_is-active');
     burgerLineRef.current.classList.toggle('header__burger-line_is-active');
@@ -18,45 +17,45 @@ function Header({onExit, email}) {
 
   return (
     <header className="header">
-      <Switch>
-        <Route path={["/sign-in", "/sign-up"]}>
-          <div className="header__body">
-            <img src={logo} alt="Логотип Mesto Russia" className="header__logo"/>
+      <div className="header__body">
+        <img src={logo} alt="Логотип Mesto Russia" className="header__logo"/>
+
+        <Switch>
+          <Route path="/sign-in">
             <nav className="header__menu header-nav">
               <ul className="header-nav__list">
-                <Route path="/sign-in">
-                  <li className="header-nav__item">
-                    <Link to="/sign-up" className="header-nav__link button-action">Регистрация</Link>
-                  </li>
-                </Route>
-                <Route path="/sign-up">
-                  <li className="header-nav__item">
-                    <Link to="/sign-in" className="header-nav__link button-action">Войти</Link>
-                  </li>
-                </Route>
+                <li className="header-nav__item">
+                  <Link to="/sign-up" className="header-nav__link link-fade button-action">Регистрация</Link>
+                </li>
               </ul>
             </nav>
-          </div>
-        </Route>
-
+          </Route>
+          <Route path="/sign-in">
+            <nav className="header__menu header-nav">
+              <ul className="header-nav__list">
+                <li className="header-nav__item">
+                  <Link to="/sign-in" className="header-nav__link link-fade button-action">Войти</Link>
+                </li>
+              </ul>
+            </nav>
+          </Route>
+        </Switch>
         <Route exact path="/">
-          <div className="header__body">
-            <img src={logo} alt="Логотип Mesto Russia" className="header__logo"/>
-
-            <button ref={burgerRef} type="button" className="header__burger" onClick={handleToggleActiveNav}>
-              <span ref={burgerLineRef} className="header__burger-line"/>
-            </button>
-          </div>
-          <nav ref={headerMenuRef} className="header__menu header-nav header-nav_atop">
-            <ul className="header-nav__list">
-              <li className="header-nav__item">{email}</li>
-              <li className="header-nav__item">
-                <Link to="/sign-in" className="header-nav__link link-fade button-action" onClick={onExit}>Выйти</Link>
-              </li>
-            </ul>
-          </nav>
+          <button ref={burgerRef} type="button" className="header__burger" onClick={handleToggleActiveNav}>
+            <span ref={burgerLineRef} className="header__burger-line"/>
+          </button>
         </Route>
-      </Switch>
+      </div>
+      <Route exact path="/">
+        <nav ref={headerMenuRef} className="header__menu header-nav header-nav_atop">
+          <ul className="header-nav__list">
+            <li className="header-nav__item">{email}</li>
+            <li className="header-nav__item">
+              <Link to="/sign-in" className="header-nav__link link-fade button-action" onClick={onExit}>Выйти</Link>
+            </li>
+          </ul>
+        </nav>
+      </Route>
     </header>
   )
     ;
