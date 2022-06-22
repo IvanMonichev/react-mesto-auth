@@ -9,7 +9,7 @@
   background: none;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 540px) {
   .header__burger {
     display: block;
     margin-right: 30px;

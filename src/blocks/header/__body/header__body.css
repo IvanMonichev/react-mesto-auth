@@ -4,7 +4,7 @@
   flex: 1 1 auto;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 540px) {
   .header__body {
     order: 2;
     padding-top: 24px;
