@@ -14,6 +14,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
+import {register} from "../utils/Auth";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const history = useHistory()
 
   React.useEffect(() => {
     api.getAllData()
@@ -131,6 +133,13 @@ function App() {
 
   /* Регистрация, авторизация */
 
+  const handleRegisterSubmit = ({email, password}) => {
+    register(email, password)
+      .then(() => {
+        history.push('/sign-in');
+      })
+  }
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
@@ -153,7 +162,7 @@ function App() {
           </Route>
           <Route path="/sign-up">
             <Register
-              /*onSubmit={handleRegisterSubmit}*/
+              onRegister={handleRegisterSubmit}
             />
           </Route>
           <Route>

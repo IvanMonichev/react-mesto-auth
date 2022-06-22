@@ -1,6 +1,6 @@
 import React from "react";
 
-const Authorization = ({title, buttonText, children}) => {
+const Authorization = ({title, buttonText, children, onSubmit}) => {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -15,7 +15,7 @@ const Authorization = ({title, buttonText, children}) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(email, password)
+    onSubmit({email, password})
   }
 
   return (
