@@ -1,11 +1,12 @@
 import React from "react";
 import Authorization from "./Authorization";
 
-function Login() {
+function Login({onLogin}) {
   return (
     <Authorization
       title="Вход"
       buttonText="Войти"
+      onSubmit={onLogin}
     >
     </Authorization>
   )
