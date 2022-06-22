@@ -14,7 +14,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
-import {authorize, register} from "../utils/Auth";
+import {authorize, getContent, register } from "../utils/Auth";
 
 function App() {
 
@@ -142,9 +142,11 @@ function App() {
 
   const handleLoginSubmit = ({email, password}) => {
     authorize(email, password)
-      .then(() => {
-        setLoggedIn(true);
-        history.push('/');
+      .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+          history.push('/');
+        }
       })
       .catch(error => {
         if (error === 400) {
@@ -161,6 +163,26 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
   }
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      getContent(jwt)
+        .then(() => {
+          setLoggedIn(true);
+          history.push('/');
+        })
+        .catch(error => {
+          if (error === 400) {
+            console.log('400 - токен не передан или передан не в том формате');
+          } else if (error === 401) {
+            console.log('401 - переданный токен некорректен');
+          } else {
+            console.log(`${error.status} – ${error.statusText}`);
+          }
+        })
+    }
+  }, [history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

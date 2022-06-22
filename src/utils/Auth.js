@@ -29,10 +29,21 @@ export const authorize = (email, password) => {
   })
     .then(handleError)
     .then(data => {
-      if (data.jwt) {
-        localStorage.setItem('jwt', data.jwt);
-        console.log(data.jwt)
+      if (data.token) {
+        localStorage.setItem('jwt', data.token)
         return data;
       }
     })
+}
+
+export const getContent = token => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  })
+    .then(handleError)
+    .then(data => data)
 }
