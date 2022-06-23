@@ -21,7 +21,7 @@ function Header({onExit, email}) {
         <img src={logo} alt="Логотип Mesto Russia" className="header__logo"/>
 
         <Switch>
-          <Route path="/sign-up">
+          <Route path="/sign-in">
             <nav className="header__menu header-nav">
               <ul className="header-nav__list">
                 <li className="header-nav__item">
@@ -30,7 +30,7 @@ function Header({onExit, email}) {
               </ul>
             </nav>
           </Route>
-          <Route path="/sign-in">
+          <Route path="/sign-up">
             <nav className="header__menu header-nav">
               <ul className="header-nav__list">
                 <li className="header-nav__item">
