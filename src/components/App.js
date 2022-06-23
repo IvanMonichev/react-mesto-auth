@@ -26,11 +26,13 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [isLoading, setIsLoading] = React.useState(false);
   const [card, setCard] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
+  const [successRegister, setSuccessResister] = React.useState(false);
   const history = useHistory()
 
   React.useEffect(() => {
@@ -98,6 +100,7 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setDeleteCardPopupOpen(false);
+    setInfoTooltipPopupOpen(false);
     setSelectedCard({name: '', link: ''})
   }
 
@@ -137,9 +140,15 @@ function App() {
   const handleRegisterSubmit = ({email, password}) => {
     register(email, password)
       .then(() => {
+        setSuccessResister(true);
+        setInfoTooltipPopupOpen(true);
         history.push('/sign-in');
       })
-      .catch(error => console.log(`${error.status} – ${error.statusText}`))
+      .catch(error => {
+        console.log(error)
+        setInfoTooltipPopupOpen(true);
+        setSuccessResister(false);
+      })
   }
 
   const handleLoginSubmit = ({email, password}) => {
@@ -259,10 +268,13 @@ function App() {
 
       <ImagePopup
         card={selectedCard}
-        onClose={closeAllPopups}/>
+        onClose={closeAllPopups}
+      />
 
       <InfoTooltip
-
+        isOpen={isInfoTooltipPopupOpen}
+        onClose={closeAllPopups}
+        onSuccessRegister={successRegister}
       />
       <template className="photo-gallery__item-template">
 
