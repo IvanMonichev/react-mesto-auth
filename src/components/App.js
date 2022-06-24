@@ -140,7 +140,7 @@ function App() {
 
   const isSuccessRegister = (boolean) => {
     setSuccessResister(boolean);
-    if(boolean) {
+    if (boolean) {
       setTextNotification('Вы успешно зарегистрировались!');
     } else  {
       setTextNotification('Что-то пошло не так! Попробуйте ещё раз.');
