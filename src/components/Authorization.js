@@ -33,6 +33,7 @@ const Authorization = ({title, buttonText, children, onSubmit}) => {
           id="email-input"
           required
           onChange={handleChangeEmail}
+          value={email || ''}
         />
         <input
           type="password"
@@ -41,6 +42,7 @@ const Authorization = ({title, buttonText, children, onSubmit}) => {
           id="password-input"
           required
           onChange={handleChangePassword}
+          value={password || ''}
         />
       </div>
       <button

@@ -33,16 +33,19 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [successRegister, setSuccessResister] = React.useState(false);
+  const [textNotification, setTextNotification] = React.useState('');
   const history = useHistory()
 
   React.useEffect(() => {
-    api.getAllData()
-      .then(([userData, cardsData]) => {
-        setCurrentUser(userData);
-        setCards(cardsData);
-      })
-      .catch(err => console.log(err));
-  }, [])
+    if (loggedIn) {
+      api.getAllData()
+        .then(([userData, cardsData]) => {
+          setCurrentUser(userData);
+          setCards(cardsData);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [loggedIn])
 
   const handleUpdateUser = ({name, about}) => {
     setIsLoading(true);
@@ -135,19 +138,26 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  /* Регистрация, авторизация */
+  const isSuccessRegister = (boolean) => {
+    setSuccessResister(boolean);
+    if(boolean) {
+      setTextNotification('Вы успешно зарегистрировались!');
+    } else  {
+      setTextNotification('Что-то пошло не так! Попробуйте ещё раз.');
+    }
+    setInfoTooltipPopupOpen(true);
+  }
 
+  /* Регистрация, авторизация */
   const handleRegisterSubmit = ({email, password}) => {
     register(email, password)
       .then(() => {
-        setSuccessResister(true);
-        setInfoTooltipPopupOpen(true);
+        isSuccessRegister(true);
         history.push('/sign-in');
       })
       .catch(error => {
         console.log(error)
-        setInfoTooltipPopupOpen(true);
-        setSuccessResister(false);
+        isSuccessRegister(false);
       })
   }
 
@@ -161,6 +171,7 @@ function App() {
         }
       })
       .catch(error => {
+        isSuccessRegister(false);
         if (error === 400) {
           console.log('400 - не передано одно из полей ');
         } else if (error === 401) {
@@ -275,11 +286,8 @@ function App() {
         isOpen={isInfoTooltipPopupOpen}
         onClose={closeAllPopups}
         onSuccessRegister={successRegister}
+        textNotification={textNotification}
       />
-      <template className="photo-gallery__item-template">
-
-      </template>
-
     </CurrentUserContext.Provider>
   );
 }
