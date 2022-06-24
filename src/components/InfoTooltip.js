@@ -2,7 +2,7 @@ import React from "react";
 import successIcon from '../images/success-icon.svg';
 import failIcon from '../images/fail-icon.svg'
 
-function InfoTooltip ({isOpen, onClose, onSuccessRegister}) {
+function InfoTooltip ({isOpen, onClose, onSuccessRegister, textNotification}) {
 
   const handleOverlayClose = (event) => {
     if (event.target !== event.currentTarget) {
@@ -19,8 +19,7 @@ function InfoTooltip ({isOpen, onClose, onSuccessRegister}) {
              alt={onSuccessRegister ? "Успешная регистрация" : "Неудачная регистрация"}
         />
         <p className="popup__notification">
-          {onSuccessRegister ? "Вы успешно зарегистрировались!" : "Что-то пошло не так!\n" +
-            "Попробуйте ещё раз."}
+          {textNotification}
         </p>
         <button type="button" className="popup__close-button button-action" onClick={onClose}></button>
       </div>
