@@ -8,7 +8,6 @@ function PageNotFound() {
     titleRef.current.textContent = "Но место всегда найдётся...";
   }
 
-
   return (
     <section className="not-found">
       <h1 className="not-found__title" onMouseMove={handleChangeText} ref={titleRef}>Страница не найдена</h1>
