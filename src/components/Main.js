@@ -20,8 +20,10 @@ function Main({
     <main className="main">
       <section className="profile">
         <div className="profile-avatar">
-          {currentUser.avatar && <img src={currentUser.avatar} alt={`Аватар пользователя – ${currentUser.name}`}
-               className="profile-avatar__image"/>}
+          {currentUser.avatar && <img src={currentUser.avatar}
+                                      alt={`Аватар пользователя – ${currentUser.name}`}
+                                      className="profile-avatar__image"/>
+          }
           <button className="profile-avatar__edit-avatar" onClick={onEditAvatar}></button>
         </div>
 
@@ -35,13 +37,15 @@ function Main({
 
       <section className="photo-gallery">
         <ul className="photo-gallery__list">
-          {cards.map((card) =>
+
+          {cards.map((card) => (
             <Card key={card._id}
                   card={card}
                   onCardClick={onCardClick}
                   onCardDelete={onCardDelete}
                   onCardLike={onCardLike}
-            />)}
+            />)
+          )}
         </ul>
       </section>
     </main>
