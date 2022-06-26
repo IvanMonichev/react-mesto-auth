@@ -18,7 +18,6 @@ import {authorize, getContent, register } from "../utils/Auth";
 import PageNotFound from "./PageNotFound";
 
 function App() {
-
   // Хуки
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -81,7 +80,6 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  // Вызов обработчиков для изменения состояния
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }

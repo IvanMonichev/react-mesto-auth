@@ -5,12 +5,18 @@ const Authorization = ({title, buttonText, children, onSubmit}) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const hasInvalidInput = input => {
+    console.log(input.validationMessage);
+  }
+
   const handleChangeEmail = event => {
     setEmail(event.target.value);
+    console.log(event.target)
+    hasInvalidInput(event.target);
   }
 
   const handleChangePassword = event => {
-    setPassword(event.target.value)
+    setPassword(event.target.value);
   }
 
   const handleSubmit = event => {
@@ -33,6 +39,7 @@ const Authorization = ({title, buttonText, children, onSubmit}) => {
           id="email-input"
           required
           onChange={handleChangeEmail}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           value={email || ''}
         />
         <input

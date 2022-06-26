@@ -1,6 +1,6 @@
 import React from "react";
 
-function PopupWithForm({name, title, buttonText, children, isOpen, onClose, onSubmit}) {
+function PopupWithForm({name, title, buttonText, children, isOpen, onClose, onSubmit, onButton}) {
 
   const handleOverlayClose = (event) => {
     if (event.target !== event.currentTarget) {
@@ -18,7 +18,11 @@ function PopupWithForm({name, title, buttonText, children, isOpen, onClose, onSu
         noValidate>
         <h2 className="popup__title">{title}</h2>
         {children}
-        <button type="submit" className="popup__save-button button-action">{buttonText}</button>
+        <button type="submit"
+                className={`popup__save-button button-action ${!onButton && 'button-inactive'}`}
+                disabled={!onButton}
+        >
+          {buttonText}</button>
         <button type="button" className="popup__close-button button-action" onClick={onClose}></button>
       </form>
     </section>
