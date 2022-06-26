@@ -74,10 +74,11 @@ function App() {
     api.addCard({name, link})
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        setAddPlacePopupOpen(false);
       })
       .catch(err => console.log(err))
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setAddPlacePopupOpen(false);
+        setIsLoading(false)});
   }
 
   function handleEditAvatarClick() {

@@ -17,7 +17,7 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, buttonText}) {
     setAvatar('');
     setAvatarValid(false);
     setTextErrorAvatar('');
-  }, [isOpen, onClose])
+  }, [isOpen])
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -35,7 +35,7 @@ function AddPlacePopup({isOpen, onClose, onAddCard, buttonText}) {
     setLinkValid(false);
     setTextErrorName('');
     setTextErrorLink('');
-  }, [isOpen, onClose])
+  }, [isOpen])
 
   return (
     <PopupWithForm
